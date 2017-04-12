@@ -12,5 +12,13 @@ var postSchema = new Schema({
   comments: [Comment.schema]
 });
 
+postSchema.methods.upvote = function () {
+  this.upvotes++;
+};
+
+postSchema.methods.downvote = function () {
+  this.downvotes++;
+};
+
 var Post = mongoose.model("post", postSchema);
 module.exports = Post;

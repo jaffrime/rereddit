@@ -17,12 +17,22 @@ app.controller('PostController', function($scope, postFactory, $rootScope) {
       })
   }
 
-  $scope.upvote = function() {
+  $scope.upvote = function(id, post) {
     //todo
+    // alert("upvote");
+    postFactory.upvote(id)
+      .then(function(response){
+        post.upvotes++;
+      })
   }
 
-  $scope.downvote = function() {
+  $scope.downvote = function(id, post) {
     //todo
+    // alert("downvote");
+    postFactory.downvote(id)
+      .then(function(response){
+        post.downvotes++;
+      })
   }
 
   $scope.deletePost = function() {
