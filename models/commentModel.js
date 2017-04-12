@@ -6,7 +6,8 @@ var commentSchema = new Schema({
   body: String,
   author: String,
   upvotes: Number,
-  downvotes: Number
+  downvotes: Number,
+  post_id: String
 });
 
 var Comment = mongoose.model("comment", commentSchema);
