@@ -8,12 +8,25 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     .state('home', {
       url: '/home',
       templateUrl: '/templates/home.html',
-      controller: 'PostController'
+      controller: 'PostController',
+      resolve: {
+        myPosts: function($http) {
+          return $http.get('/posts');
+        }
+      }
     })
     .state('comment', {
       url: '/post/:id',
       templateUrl: '/templates/comments.html',
-      controller: 'CommentController'
+      controller: 'CommentController',
+      resolve: {
+        myPost: function($http, $stateParams) {
+          // console.log($stateParams);
+          let id = $stateParams.id;
+          // console.log(id);
+          return $http.get('/posts/' + id)
+        }
+      }
     })
     .state('login', {
       url: '/login',

@@ -10,5 +10,13 @@ var commentSchema = new Schema({
   post_id: String
 });
 
+commentSchema.methods.upvote = function () {
+  this.upvotes++;
+};
+
+commentSchema.methods.downvote = function () {
+  this.downvotes++;
+};
+
 var Comment = mongoose.model("comment", commentSchema);
 module.exports = Comment;

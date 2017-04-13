@@ -10,6 +10,7 @@ var postSchema = new Schema({
   upvotes: Number,
   downvotes: Number,
   comments: [Comment.schema]
+  // comments: [{type: Schema.Types.ObjectId, ref: 'comment'}]
 });
 
 postSchema.methods.upvote = function () {

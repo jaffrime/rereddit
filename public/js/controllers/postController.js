@@ -1,18 +1,21 @@
-app.controller('PostController', function($scope, postFactory, $rootScope) {
+app.controller('PostController', function($scope, postFactory, myPosts, $rootScope) {
 
-  $scope.getPosts = function() {
-    postFactory.getPosts()
-      .then(function(response){
-        $scope.posts = response;
-      })
-  }
+  $scope.posts = myPosts.data;
+  console.log($scope.posts);
+
+  // $scope.getPosts = function() {
+  //   postFactory.getPosts()
+  //     .then(function(response){
+  //       $scope.posts = response;
+  //     })
+  // }
 
   $scope.addPost = function() {
     //todo
     // alert('button working in controller');
     postFactory.addPost($scope.text)
       .then(function(response){
-        console.log(response);
+        // console.log(response);
         $scope.posts.push(response);
       })
   }
@@ -38,7 +41,5 @@ app.controller('PostController', function($scope, postFactory, $rootScope) {
   $scope.deletePost = function() {
     //extension todo - only for admins
   }
-
-  $scope.getPosts();
 
 });

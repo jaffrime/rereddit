@@ -2,6 +2,7 @@
 var express = require('express');
 var router = express.Router();
 var Post = require('../models/postModel');
+var Comment = require('../models/commentModel');
 
 //as we are using modular route handlers we use router.param an not app.param
 router.param('postid', function(req, res, next, id) {
@@ -19,7 +20,7 @@ router.param('postid', function(req, res, next, id) {
 
 //add post
 router.post('/', function(req, res, next){
-  console.log(req.body);
+  // console.log(req.body);
   Post.create(req.body, function(err, post){
     if (err) {
       console.error(err);
@@ -73,8 +74,45 @@ router.delete('/:postid', function(req, res, next) {
 });
 
 //get post (and it's comments)
+router.get('/:postid', function(req, res, next) {
+  // console.log("request seen by server");
+  // console.log(req.post);
+  return res.json(req.post);
+})
+
 //add comment (to post)
+router.put('/:postid/comments', function(req, res, next){
+  // console.log(req.post, req.body);
+  Comment.create(req.body, function(err, post){
+    if (err) {
+      console.error(err);
+    } else {
+      // res.send(post);
+      req.post.comments.push(req.body);
+      req.post.save(function(err, result){
+        if (err) {
+          return next(err);
+        } else {
+          return res.send(result);
+        }
+      })
+    }
+  })
+})
+
 //up/down vote comment (belonging to post)
+router.put('/comments/:commentid', function(req, res, next) {
+  console.log("in the server", req.body);
+
+  Comment.findById(req.params.commentid, function(err, comment){
+    if (err) {
+      console.error(err);
+    } else {
+      console.log(comment);
+    }
+  })
+})
+
 //extension: delete post (admin only)
 //extension: remove comment from post (admin only)
 
