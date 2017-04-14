@@ -1,7 +1,7 @@
 app.controller('PostController', function($scope, postFactory, myPosts, $rootScope) {
 
   $scope.posts = myPosts.data;
-  console.log($scope.posts);
+  // console.log($scope.posts);
 
   // $scope.getPosts = function() {
   //   postFactory.getPosts()
@@ -20,19 +20,19 @@ app.controller('PostController', function($scope, postFactory, myPosts, $rootSco
       })
   }
 
-  $scope.upvote = function(id, post) {
+  $scope.upvote = function(post) {
     //todo
     // alert("upvote");
-    postFactory.upvote(id)
+    postFactory.upvote(post._id)
       .then(function(response){
         post.upvotes++;
       })
   }
 
-  $scope.downvote = function(id, post) {
+  $scope.downvote = function(post) {
     //todo
     // alert("downvote");
-    postFactory.downvote(id)
+    postFactory.downvote(post._id)
       .then(function(response){
         post.downvotes++;
       })

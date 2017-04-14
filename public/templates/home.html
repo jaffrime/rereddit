@@ -1,8 +1,8 @@
 <div ng-repeat="post in posts | orderBy:'-(upvotes-downvotes)' track by $index">
     <!-- ({{post.upvotes}}) -->
-    <span class="glyphicon glyphicon-thumbs-up" ng-click="upvote(post._id, post)"> </span>
+    <span class="glyphicon glyphicon-thumbs-up" ng-click="upvote(post)"> </span>
     {{post.upvotes - post.downvotes}}
-    <span class="glyphicon glyphicon-thumbs-down" ng-click="downvote(post._id, post)"> </span>
+    <span class="glyphicon glyphicon-thumbs-down" ng-click="downvote(post)"> </span>
     <!-- ({{post.downvotes}}) -->
     <span class="post-text">
       {{post.text}}

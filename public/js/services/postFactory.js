@@ -80,13 +80,14 @@ app.factory('postFactory', function($http, $rootScope) {
 
     //up/down vote comment (belonging to post)
     commentVote : function (commentId, updownBool) {
-      console.log(commentId, updownBool);
+      // console.log(commentId, updownBool);
       let vote = {
         bool: updownBool
       }
       return $http.put('/posts/comments/' + commentId, vote)
         .then(function(response){
           // console.log(response.data);
+          return response.data;
       })
     }
 

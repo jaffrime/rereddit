@@ -14,23 +14,25 @@ app.controller('CommentController', function($scope, $stateParams, postFactory, 
       })
   }
 
-  $scope.upvote = function(commentId) {
+  $scope.upvote = function(comment) {
     //todo
     // console.log(commentId);
     // true === upvote
-    postFactory.commentVote(commentId, true)
+    postFactory.commentVote(comment._id, true)
       .then(function(response){
-
+        // console.log(response);
+        comment.upvotes++;
     })
   }
 
-  $scope.downvote = function(commentId) {
+  $scope.downvote = function(comment) {
     //todo
     // console.log(commentId);
-    // flase === downvote
-    postFactory.commentVote(commentId, false)
+    // false === downvote
+    postFactory.commentVote(comment._id, false)
       .then(function(response){
-
+        // console.log(response);
+        comment.downvotes++;
     })
   }
 

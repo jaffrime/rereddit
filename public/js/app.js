@@ -24,7 +24,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
           // console.log($stateParams);
           let id = $stateParams.id;
           // console.log(id);
-          return $http.get('/posts/' + id)
+          return $http.get('/posts/' + id);
         }
       }
     })
