@@ -69,7 +69,7 @@ app.factory('postFactory', function($http, $rootScope) {
         author: "the commentator",
         upvotes: 0,
         downvotes: 0,
-        post_id: postID
+        post: postID
       };
       return $http.put('/posts/'+postID+'/comments', newComment)
         .then(function(response){

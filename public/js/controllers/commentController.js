@@ -9,7 +9,8 @@ app.controller('CommentController', function($scope, $stateParams, postFactory, 
     postFactory.addComment($scope.body, $stateParams.id)
       .then(function(response){
         // console.log(response.comments[response.comments.length-1]);
-        $scope.post.comments.push(response.comments[response.comments.length-1]);
+        // $scope.post.comments.push(response.comments[response.comments.length-1]);
+        $scope.post.comments.push(response);
       })
   }
 

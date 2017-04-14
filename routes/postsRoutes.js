@@ -73,27 +73,60 @@ router.delete('/:postid', function(req, res, next) {
   });
 });
 
+// //get post (and it's comments)
+// router.get('/:postid', function(req, res, next) {
+//   // console.log("request seen by server");
+//   // console.log(req.post);
+//   req.post.populate('comments')
+//     .exec(function(err,post) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//       // console.log("my populated post", post);
+//       return res.json(post);
+//       }
+//     })
+//   // console.log(req.post);
+//   // return res.json(req.post);
+// })
+
 //get post (and it's comments)
-router.get('/:postid', function(req, res, next) {
+router.get('/:postid2', function(req, res, next) {
   // console.log("request seen by server");
   // console.log(req.post);
-  return res.json(req.post);
+  var postwComments;
+  Post.findOne({_id: req.params.postid2})
+    .populate('comments')
+    .exec(function(err,post) {
+      if (err) {
+        console.error(err);
+      } else {
+      // console.log("my populated post", post);
+      return res.json(post);
+      }
+  })
+  // console.log("to send", postwComments);
+  // return res.json(req.post);
 })
+
+
 
 //add comment (to post)
 router.put('/:postid/comments', function(req, res, next){
-  // console.log(req.post, req.body);
-  Comment.create(req.body, function(err, post){
+  console.log(req.post, req.body);
+  Comment.create(req.body, function(err, comment){
     if (err) {
       console.error(err);
     } else {
       // res.send(post);
-      req.post.comments.push(req.body);
+      console.log(comment);
+      req.post.comments.push(comment);
       req.post.save(function(err, result){
         if (err) {
           return next(err);
         } else {
-          return res.send(result);
+          // return res.send(result);
+          return res.send(comment);
         }
       })
     }

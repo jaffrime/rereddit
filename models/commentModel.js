@@ -7,7 +7,8 @@ var commentSchema = new Schema({
   author: String,
   upvotes: Number,
   downvotes: Number,
-  post_id: String
+  // post_id: String
+  post: {type: Schema.Types.ObjectId, ref: 'post'}
 });
 
 commentSchema.methods.upvote = function () {
