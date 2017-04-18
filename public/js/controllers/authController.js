@@ -1,6 +1,7 @@
-app.controller('AuthController', function($scope, authFactory, $rootScope) {
+app.controller('AuthController', function($scope, authFactory) {
   //todo
-
-  // $rootScope.currentUser = "Jimmy";
-  // alert("$rootScope.currentUser");
+  $scope.register = function () {
+    // console.log("in the AuthController");
+    authFactory.register($scope.user);
+  }
 });

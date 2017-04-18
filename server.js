@@ -11,7 +11,7 @@ var request = require('request'); //not actually needed
 var User = require('./models/userModel');
 var Post = require('./models/postModel');
 var Comment = require('./models/commentModel');
-// var authRoutes = require('./routes/authRoutes');
+var authRoutes = require('./routes/authRoutes');
 var postsRoutes = require('./routes/postsRoutes');
 
 mongoose.connect('mongodb://localhost/rereddit');

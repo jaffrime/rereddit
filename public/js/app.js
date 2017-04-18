@@ -32,6 +32,11 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
       url: '/login',
       templateUrl: '/templates/login.html',
       controller: 'AuthController'
+    })
+    .state('register', {
+      url: '/register',
+      templateUrl: '/templates/register.html',
+      controller: 'AuthController'
     });
 
   $urlRouterProvider.otherwise('home');
