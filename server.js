@@ -23,10 +23,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('public'));
 app.use(express.static('node_modules'));
 
-/* TODO: to figure out...
+// TODO: to figure out...
 //configure passport and session middleware
 app.use(expressSession({
-    secret: 'yourSecretHere',
+    secret: 'reRedditSecret',
     resave: false,
     saveUninitialized: false
 }));
@@ -37,11 +37,11 @@ app.use(passport.session());
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-*/
+
 
 //API routes
 
-// app.use('/auth', authRoutes);
+app.use('/auth', authRoutes);
 app.use('/posts', postsRoutes);
 
 app.all('*', function(req, res) {
