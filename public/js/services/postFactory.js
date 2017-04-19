@@ -1,16 +1,16 @@
-app.factory('postFactory', function($http, $rootScope) {
+app.factory('postFactory', function($http) {
 
   var posts = {
     //todo
     //add post
-    addPost : function (newText) {
+    addPost : function (newText, user) {
       // alert('button working in factory');
-      // console.log("User: " + $rootScope.currentUser);
+      console.log("User: " + user.username);
       let newPost = {
         text: newText,
-        author: "Jimmy",
-        upvotes: 0,
-        downvotes: 0
+        author: user.username
+        // upvotes: 0,
+        // downvotes: 0
       };
       return $http.post('/posts', newPost)
         .then(function(response){
@@ -62,13 +62,13 @@ app.factory('postFactory', function($http, $rootScope) {
 
 
     //add comment (to post)
-    addComment : function (body, postID) {
+    addComment : function (body, user, postID) {
       // alert("posting comment in factory")
       let newComment = {
         body: body,
-        author: "the commentator",
-        upvotes: 0,
-        downvotes: 0,
+        author: user.username,
+        // upvotes: 0,
+        // downvotes: 0,
         post: postID
       };
       return $http.put('/posts/'+postID+'/comments', newComment)
@@ -89,9 +89,17 @@ app.factory('postFactory', function($http, $rootScope) {
           // console.log(response.data);
           return response.data;
       })
-    }
+    },
 
     //extension: admin can delete post
+    deleteVote : function (postId) {
+      return $http.delete('/posts/' + postId)
+        .then(function(response){
+          // console.log(response.data);
+          return;
+        })
+    }
+
     //extension: admin can delete comment (from post)
   }
   return posts;

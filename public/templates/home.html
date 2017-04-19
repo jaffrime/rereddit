@@ -8,6 +8,7 @@
       {{post.text}}
     </span> - by {{post.author}}
     <a ui-sref="comment({id: post._id})">comments</a>
+    <button type="button" class="btn btn-danger delete-button" ng-click="deletePost(post._id)">Delete</button>
 </div>
 <form ng-submit="addPost()">
     <h3>Add a new post</h3>

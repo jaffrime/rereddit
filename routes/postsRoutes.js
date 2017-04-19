@@ -177,6 +177,17 @@ router.put('/comments/:commentid', function(req, res, next) {
 
 
 //extension: delete post (admin only)
+router.delete('/:postid', function(req, res, next) {
+  console.log(req.post);
+  req.post.delete(function(err, post){
+    if (err) {
+      console.error(err);
+    } else {
+      return res.send(post);
+    }
+  })
+})
+
 //extension: remove comment from post (admin only)
 
 module.exports = router;

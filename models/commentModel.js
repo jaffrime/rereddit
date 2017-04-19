@@ -5,8 +5,8 @@ var Schema = mongoose.Schema;
 var commentSchema = new Schema({
   body: String,
   author: String,
-  upvotes: Number,
-  downvotes: Number,
+  upvotes: {type: Number, default: 0},
+  downvotes: {type: Number, default: 0},
   // post_id: String
   post: {type: Schema.Types.ObjectId, ref: 'post'}
 });

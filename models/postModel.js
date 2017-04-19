@@ -7,8 +7,8 @@ var Comment = require('./commentModel');
 var postSchema = new Schema({
   text: String,
   author: String,
-  upvotes: Number,
-  downvotes: Number,
+  upvotes: {type: Number, default: 0},
+  downvotes: {type: Number, default: 0},
   // comments: [Comment.schema]
   comments: [{type: Schema.Types.ObjectId, ref: 'comment'}]
 });

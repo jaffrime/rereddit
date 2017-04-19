@@ -1,4 +1,4 @@
-app.controller('PostController', function($scope, postFactory, myPosts, $rootScope) {
+app.controller('PostController', function($scope, postFactory, myPosts) {
 
   $scope.posts = myPosts.data;
   // console.log($scope.posts);
@@ -13,7 +13,8 @@ app.controller('PostController', function($scope, postFactory, myPosts, $rootSco
   $scope.addPost = function() {
     //todo
     // alert('button working in controller');
-    postFactory.addPost($scope.text)
+    // console.log($scope.currentUser);
+    postFactory.addPost($scope.text, $scope.currentUser)
       .then(function(response){
         // console.log(response);
         $scope.posts.push(response);
@@ -38,8 +39,18 @@ app.controller('PostController', function($scope, postFactory, myPosts, $rootSco
       })
   }
 
-  $scope.deletePost = function() {
+  $scope.deletePost = function(postId) {
     //extension todo - only for admins
+    postFactory.deleteVote(postId)
+      .then(function(){
+        // console.log("deleted");
+        let postIndex = null;
+        for (let i = 0; i < $scope.posts.length; i++){
+          if ($scope.posts[i]._id === postId) {
+            $scope.posts.splice(i,1);
+          }
+        }
+      });
   }
 
 });
