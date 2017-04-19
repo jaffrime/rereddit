@@ -31,4 +31,12 @@ router.get('/logout', function(req, res) {
   res.send('Logged Out');
 });
 
+router.get('/currentuser', function(req, res) {
+  if (req.user) {
+    res.send(req.user.username);
+  } else {
+    res.send(null);
+  }
+});
+
 module.exports = router;

@@ -7,7 +7,18 @@
 </head>
 
 <body ng-app="rereddit">
-    <div class="container">
+    <div class="container" ng-controller="AuthController">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" ui-sref="home">reReddit</a>
+                        <a type="button" ui-sref="login" ng-hide="currentUser.username" class="btn btn-default navbar-btn">Log In</a>
+                        <a type="button" ui-sref="register" ng-hide="currentUser.username" class="btn btn-default navbar-btn">Register</a>
+                        <button type="button" ng-show="currentUser.username" ng-click="logout()" class="btn btn-default navbar-btn">Log Out</button>
+                    </div>
+                    <p class="navbar-text ng-cloak">{{currentUser.username}}</p>
+                </div>
+            </nav>
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <h1 class="text-center">ReReddit</h1>
