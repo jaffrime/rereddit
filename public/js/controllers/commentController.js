@@ -36,8 +36,18 @@ app.controller('CommentController', function($scope, $stateParams, postFactory, 
     })
   }
 
-  $scope.deleteComment = function() {
+  $scope.deleteComment = function(commentId) {
     //extension todo - only for admins
+    // console.log(commentId);
+    postFactory.deleteComment(commentId)
+      .then(function(){
+        // console.log("comment deleted");
+        for (let i = 0; i < $scope.post.comments.length; i++){
+          if ($scope.post.comments[i]._id === commentId) {
+            $scope.post.comments.splice(i,1);
+          }
+        }
+      })
   }
 
-});
+}); //controller

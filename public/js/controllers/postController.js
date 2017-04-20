@@ -44,7 +44,6 @@ app.controller('PostController', function($scope, postFactory, myPosts) {
     postFactory.deleteVote(postId)
       .then(function(){
         // console.log("deleted");
-        let postIndex = null;
         for (let i = 0; i < $scope.posts.length; i++){
           if ($scope.posts[i]._id === postId) {
             $scope.posts.splice(i,1);

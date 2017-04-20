@@ -8,6 +8,7 @@ app.factory('authFactory', function($http) {
     // console.log("in the factory");
     return $http.post('/auth/register', user)
       .then(function(response){
+        // console.log(response);
         auth.currentUser.username = response.data;
       });
   };
@@ -29,7 +30,7 @@ app.factory('authFactory', function($http) {
   auth.getCurrentUser = function(){
       return $http.get('/auth/currentUser')
         .then(function(response){
-          console.log(response.data);
+          // console.log(response.data);
           auth.currentUser.username = response.data;
         })
     };

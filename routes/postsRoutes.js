@@ -62,17 +62,6 @@ router.get('/', function(req, res, next){
   })
 })
 
-//delete post
-router.delete('/:postid', function(req, res, next) {
-  req.post.remove(function(err, result) {
-    if (err) {
-      return next(err);
-    } else {
-      return res.send(result);
-    }
-  });
-});
-
 //get post (and it's comments)
 router.get('/:postid', function(req, res, next) {
   // console.log("request seen by server");
@@ -108,6 +97,19 @@ router.get('/:postid', function(req, res, next) {
 
 
 
+//extension: delete post (admin only)
+router.delete('/:postid', function(req, res, next) {
+  // console.log(req.post);
+  req.post.remove(function(err, post){
+    if (err) {
+      console.error(err);
+    } else {
+      return res.send(post);
+    }
+  })
+})
+
+
 //add comment (to post)
 router.put('/:postid/comments', function(req, res, next){
   console.log(req.post, req.body);
@@ -131,63 +133,69 @@ router.put('/:postid/comments', function(req, res, next){
 })
 
 // find Comment by id router param
-// router.param('commentid', function(req, res, next, id) {
-//   Comment.findById(id, function(err, comment) {
-//     if (err) {
-//       return next(err);
-//     } else if (!comment) {
-//       return next(new Error('Comment does not exist'));
-//     } else {
-//       req.comment = comment;  //put the post on the request object for the next function in line to use
-//       return next();
-//     }
-//   });
-// });
+router.param('commentid', function(req, res, next, id) {
+  Comment.findById(id, function(err, comment) {
+    if (err) {
+      return next(err);
+    } else if (!comment) {
+      return next(new Error('Comment does not exist'));
+    } else {
+      req.comment = comment;  //put the post on the request object for the next function in line to use
+      return next();
+    }
+  });
+});
 
 
 //up/down vote comment (belonging to post)
 router.put('/comments/:commentid', function(req, res, next) {
   // console.log("in the server", req.body);
 
-  Comment.findById(req.params.commentid, function(err, foundComment){
-    // console.log(comment);
-      if (err) {
-        console.error(err);
-      } else {
-        req.comment = foundComment;
-        if (req.body.bool) {
-          req.comment.upvote();
-        } else {
-          req.comment.downvote();
-        }
-        // console.log(req.comment);
-      }
+// old code w/out router.param
+  // Comment.findById(req.params.commentid, function(err, foundComment){
+  //   // console.log(comment);
+  //     if (err) {
+  //       console.error(err);
+  //     } else {
+  //       req.comment = foundComment;
+  //       if (req.body.bool) {
+  //         req.comment.upvote();
+  //       } else {
+  //         req.comment.downvote();
+  //       }
+  //       // console.log(req.comment);
+  //     }
 
-      req.comment.save(function(err, editedComment){
-        if (err) {
-          return next(err);
-        } else {
-          // console.log(req.post);
-          return res.send(editedComment);
-        }
-      })
+  if (req.body.bool) {
+    req.comment.upvote();
+  } else {
+    req.comment.downvote();
+  }
+  // console.log(req.comment);
+
+  req.comment.save(function(err, editedComment){
+    if (err) {
+      return next(err);
+    } else {
+      // console.log(req.post);
+      return res.send(editedComment);
+    }
   })
+  // })
 
 })
 
 
-//extension: delete post (admin only)
-router.delete('/:postid', function(req, res, next) {
-  console.log(req.post);
-  req.post.delete(function(err, post){
+//extension: remove comment from post (admin only)
+router.delete('/comments/:commentid', function(req, res, next) {
+  console.log(req.comment);
+  req.comment.remove(function(err, comment){
     if (err) {
       console.error(err);
     } else {
-      return res.send(post);
+      return res.send(comment);
     }
   })
 })
-
-//extension: remove comment from post (admin only)
 
 module.exports = router;

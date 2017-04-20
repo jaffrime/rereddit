@@ -5,7 +5,7 @@ var router = express.Router();
 var User = require('../models/userModel');
 
 router.post('/register', function(req, res, next) {
-  console.log("registering on the server");
+  // console.log("registering on the server");
   User.register(new User({ username: req.body.username }), req.body.password, function(err, user) {
     if (err) {
       console.log('Error registering!', err);
@@ -15,7 +15,7 @@ router.post('/register', function(req, res, next) {
       if (err) {
         return next(err);
       }
-      res.send(req.user);
+      res.send(req.user.username);
     });
   });
 });

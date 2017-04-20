@@ -10,6 +10,8 @@
     <!-- {{comment.downvotes}} -->
     <span class="comment-body">{{comment.body}}</span>
     - by {{comment.author}}
+    <a href="#" class="delete-link" ng-click="deleteComment(comment._id)">delete</a>
+
 </div>
 <form ng-submit="addComment()">
     <h3>Add a new comment</h3>

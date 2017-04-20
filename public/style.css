@@ -12,3 +12,17 @@
 /*.delete-button {
   height: 20px;
 }*/
+
+.delete-link {
+  color: red;
+  text-decoration: none;
+}
+
+.delete-link:hover {
+  color: red;
+}
+
+.delete-link:visited {
+  color: red;
+  text-decoration: none;
+}

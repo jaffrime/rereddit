@@ -98,9 +98,16 @@ app.factory('postFactory', function($http) {
           // console.log(response.data);
           return;
         })
-    }
+    },
 
     //extension: admin can delete comment (from post)
+    deleteComment : function (commentId) {
+      return $http.delete('/posts/comments/' + commentId)
+        .then(function(response){
+          // console.log(response.data);
+          return;
+        })
+    }
   }
   return posts;
 });
