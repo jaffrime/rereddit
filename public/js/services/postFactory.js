@@ -5,7 +5,7 @@ app.factory('postFactory', function($http) {
     //add post
     addPost : function (newText, user) {
       // alert('button working in factory');
-      console.log("User: " + user.username);
+      // console.log("User: " + user.username);
       let newPost = {
         text: newText,
         author: user.username

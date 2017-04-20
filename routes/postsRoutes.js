@@ -104,21 +104,31 @@ router.delete('/:postid', function(req, res, next) {
     if (err) {
       console.error(err);
     } else {
+      console.log("post deleted");
       return res.send(post);
     }
+  })
+
+  // how to delete all comments associated w/ the post?
+  Comment.remove({post: req.params.postid}, function(err) {
+      if (err) {
+        console.error(err);
+      } else {
+        console.log("associated comments deleted");
+      }
   })
 })
 
 
 //add comment (to post)
 router.put('/:postid/comments', function(req, res, next){
-  console.log(req.post, req.body);
+  // console.log(req.post, req.body);
   Comment.create(req.body, function(err, comment){
     if (err) {
       console.error(err);
     } else {
       // res.send(post);
-      console.log(comment);
+      // console.log(comment);
       req.post.comments.push(comment);
       req.post.save(function(err, result){
         if (err) {
@@ -188,7 +198,7 @@ router.put('/comments/:commentid', function(req, res, next) {
 
 //extension: remove comment from post (admin only)
 router.delete('/comments/:commentid', function(req, res, next) {
-  console.log(req.comment);
+  // console.log(req.comment);
   req.comment.remove(function(err, comment){
     if (err) {
       console.error(err);
